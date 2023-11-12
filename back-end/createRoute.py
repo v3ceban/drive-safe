@@ -107,6 +107,40 @@ def getRouteInfo():
         route_waypoints.append(route['result']['trip']['wayPoints'][i]['geometry']['coordinates'])
     return jsonify(route_waypoints)
 
+@app.route("/getHighwayRoutes/<start_lat>/<start_long>/<time>")
+def getHighwayRoutes(start_long, start_lat, time):
+
+    #uses parameters to make a drive time polygons API call, and saves the XML data into 'polygon'
+    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_lat) + "%7C" + str(start_long) + '&duration=' + str(time)
+    polygon = requests.get(polygon_url, headers = header)
+
+    #parses the XML and saves the coordinates to 'coords'
+    coords = polygon.text.replace("</posList>", "<posList>").split("<posList>")[1]
+
+    #variables to store the farthest point on the perimeter of the drive by polygon
+    far_lat = 0
+    far_long = 0
+
+    #variables to store the current point as the program iterates through all 50
+    temp_lat = 0
+    temp_long = 0
+
+    #loop through every point on the polygon
+    for i in range(0, 100, 2):
+
+        #parsing the list of coordinates to get each one in order
+        temp_lat = float(coords.split(" ")[i])
+        temp_long = float(coords.split(" ")[i + 1])
+
+        #if the distance between the user's location and the current point is greater than the distance to the previous farther point,
+        #update the farthest point to the current point 
+        if(math.sqrt(math.pow(temp_lat - float(start_lat), 2) + math.pow(temp_long - float(start_lat), 2)) > math.sqrt(math.pow(far_lat - float(start_lat), 2) + math.pow(far_long - float(start_lat), 2))):
+            far_long = temp_long
+            far_lat = temp_lat
+
+    #pack the start and end points of the route into a JSON and return them
+    return jsonify(start_lat, start_long, str(far_lat), str(far_long))
+
 app.run()
    
    
