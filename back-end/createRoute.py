@@ -52,9 +52,9 @@ def getRoutes():
     route_list = []
 
     item = routing['result']['trip']['routes'][0]['id']
-    route_list.append(item);
-    route_list.append(str(int(item)+1));
-    route_list.append(str(int(item)+2));
+    route_list.append(item)
+    route_list.append(str(int(item)+1))
+    route_list.append(str(int(item)+2))
     return jsonify(route_list)
     
 @app.route('/test')
