@@ -127,7 +127,7 @@ const Home = () => {
 
     try {
       const response = await fetch(apiEndpoint, {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
