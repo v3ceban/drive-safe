@@ -96,7 +96,7 @@ const Home = () => {
     }
   };
 
-  const handleStartPractice = (e) => {
+  const handleStartPractice = async (e) => {
     e.preventDefault();
 
     const formElements = Array.from(e.target.elements);
@@ -117,11 +117,33 @@ const Home = () => {
     // Store the form data in the state
     setFormData(newFormData);
 
-    // Navigate to "/return" if needed
-    navigate("/return");
+    // Make a POST request to your Flask backend
+    const apiEndpoint = "http://127.0.0.1:5000"; // Update this with your Flask API endpoint
+    try {
+      const response = await fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFormData),
+      });
 
-    // Log the form data as JSON
-    console.log("Form Data:", JSON.stringify(newFormData));
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      // Handle the response from the Flask API if needed
+      console.log("API Response:", data);
+
+      // Navigate to "/return" if needed
+      navigate("/return");
+
+      // Log the form data as JSON
+      console.log("Form Data:", JSON.stringify(newFormData));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
   return (
