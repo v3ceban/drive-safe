@@ -1,5 +1,5 @@
 .hamburger {
-  padding: 15px 15px;
+  padding: 10px;
   display: inline-block;
   cursor: pointer;
   transition-property: opacity, filter;
@@ -27,10 +27,10 @@
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
-  width: 40px;
-  height: 4px;
+  width: 30px;
+  height: 3.5px;
   background-color: $white;
-  border-radius: 4px;
+  border-radius: 22px;
   position: absolute;
   transition-property: transform;
   transition-duration: 0.15s;

@@ -1,8 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@500&display=swap");
+@import "./scss/resets.scss";
 @import "./scss/colors.scss";
 @import "./scss/hamburger.scss";
 @import "./scss/header.scss";
+@import "./scss/main.scss";
 
+// globals
 body {
+  padding: 40px 25px;
   background: $black;
   color: white;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+a,
+a:visited,
+a:link,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
 }
