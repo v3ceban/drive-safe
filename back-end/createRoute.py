@@ -18,7 +18,7 @@ api_key = json_data['result']['token']
 header = {'Authorization' : 'Bearer ' + api_key}
 
 #Sets up function and API for getRoutes, which returns a json of a list
-#example call http://127.0.0.1:5000/getRoutes?start_lat=37.76152452481759&start_long=-122.4507584298815&highway=True&time=90&points=6
+#example call http://127.0.0.1:5000/getRoutes?start_lat=37.76152452481759&start_long=-122.4507584298815&time=90&points=6
 @app.route("/getRoutes")
 def getRoutes():
     #takes input from arguments included in the url, assigns them to variables
