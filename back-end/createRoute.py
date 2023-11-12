@@ -115,9 +115,9 @@ def getRouteInfo():
 @app.route("/getHighwayRoutes")
 def getHighwayRoutes():
     # Get parameters from the front-end React function
-    start_lat = float(request.args.get('start_lat', 37.76152452481759))
-    start_long = float(request.args.get('start_long', -122.4507584298815))
-    time = 90
+    start_lat = float(request.args.get('start_lat', None))
+    start_long = float(request.args.get('start_long', None))
+    time = float(request.args.get('min', None))
 
     # Rest of your code remains unchanged
     polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_lat) + "%7C" + str(start_long) + '&duration=' + str(time // 2)
