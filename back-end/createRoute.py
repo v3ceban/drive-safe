@@ -22,10 +22,10 @@ header = {'Authorization' : 'Bearer ' + api_key}
 @app.route("/getRoutes")
 def getRoutes():
     #takes input from arguments included in the url, assigns them to variables
-    start_lat = 37.76152452481759
-    start_long = -122.4507584298815
-    time = 90
-    highway = True
+    start_lat = float(request.args.get('start_lat', None))
+    start_long = float(request.args.get('start_long', None))
+    time = float(request.args.get('min', None))
+    highway = false
     
     # maximum of 8 points, most accurate when 6 points
     points = 6
