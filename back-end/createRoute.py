@@ -1,5 +1,5 @@
 import requests, json, math
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import xml.etree.ElementTree as ET 
 
 app = Flask(__name__)
@@ -13,12 +13,18 @@ api_key = json_data['result']['token']
 header = {'Authorization' : 'Bearer ' + api_key}
 
 # maximum of 8 points, most accurate when 6 points
-@app.route("/getRoutes/ <start_long> <start_lat> <time> <highway> <points>")
-def getRoutes(start_long, start_lat, time, highway, points):
-    add_highway = ""
+#example call 
+@app.route("/getRoutes")
+def getRoutes():
+    start_long = request.args.get("start_long", type=float)
+    start_lat = request.args.get("start_lat", type=float)
+    highway = request.args.get("highway", type = bool)
+    time = request.args.get('time', type = int)
+    points = request.args.get('points', type = int)
     if not highway:
         add_highway = "&criteria=H"
-    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_long) + "%7C" + str(start_lat) + '&duration=' + str(time//points)
+    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_long) + "%7C" + str(start_lat) + '&duration=' + str(int(time)//int(points))
+    print(polygon_url)
     polygon = requests.get(polygon_url, headers = header)
     polygon_tree = ET.fromstring(polygon.text)
     coords = polygon_tree[0][0][0][0][0][0].text
@@ -40,6 +46,7 @@ def getRoutes(start_long, start_lat, time, highway, points):
         midpoints += '&wp_' + str(i+2) + '=' + str(loc_long[i+1]) + "%2C" + str(loc_lat[i+1]) 
         j += 1
     route_url = 'https://api.iq.inrix.com/findRoute?wp_1=' + str(loc_long[0]) + "%2C" + str(loc_lat[0]) + midpoints +'&wp_'+ str(points + 2) + '=' + str(loc_long[0]) + "%2C" + str(loc_lat[0])  + '&maxAlternates=2&format=json' + add_highway
+    print(route_url)
     route = requests.get(route_url, headers = header)
     routing = route.json()
     route_list = []
@@ -48,10 +55,16 @@ def getRoutes(start_long, start_lat, time, highway, points):
     route_list.append(item);
     route_list.append(str(int(item)+1));
     route_list.append(str(int(item)+2));
-    return route_list
+    return jsonify(route_list)
     
-@app.route("/getRouteInfo/ <route_id>")
+@app.route('/test')
+def test():
+    start_long = request.args.get("start_long", type=str)
+    return jsonify(start_long)
+
+@app.route("/getRouteInfo")
 def getRouteInfo(route_id):
+    route_id = request.args.get("routeId", type=int)
     route_url = 'https://api.iq.inrix.com/route?routeId=' + route_id + '&format=json'
     route_info = requests.get(route_url, headers = header)
     route = route_info.json()
@@ -59,9 +72,14 @@ def getRouteInfo(route_id):
     length = len(route['result']['trip']['wayPoints'])
     for i in range(length):
         route_waypoints.append(route['result']['trip']['wayPoints'][i]['geometry']['coordinates'])
-    return route_waypoints
+    return jsonify(route_waypoints)
 
 app.run()
+   
+   
+    
+    
+    
    
    
     
