@@ -16,24 +16,24 @@ api_key = json_data['result']['token']
 header = {'Authorization' : 'Bearer ' + api_key}
 
 #Sets up function and API for getRoutes, which returns a json of a list
-#example call http://127.0.0.1:5000/getRoutes?start_long=33.174639232&start_lat=-122.4356485&highway=True&time=30&points=6
+#example call http://127.0.0.1:5000/getRoutes?start_lat=37.76152452481759&start_long=-122.4507584298815&highway=True&time=90&points=6
 @app.route("/getRoutes")
 def getRoutes():
     #takes input from arguments included in the url, assigns them to variables
-    start_long = request.args.get("start_long", type=float)
-    start_lat = request.args.get("start_lat", type=float)
-    highway = request.args.get("highway", type = bool)
-    time = request.args.get('time', type = int)
+    start_lat = 37.76152452481759
+    start_long = -122.4507584298815
+    time = 90
+    highway = True
     
     # maximum of 8 points, most accurate when 6 points
-    points = request.args.get('points', type = int)
+    points = 6
 
     #adds a no highway parameter depending on user input arguements
     if not highway:
         add_highway = "&criteria=H"
 
     #Creates the url for drivetimePolygons, using starting longitude, "%7C" which is a '|', starting latitude, and a duration calculated from time and number of points
-    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_long) + "%7C" + str(start_lat) + '&duration=' + str(int(time)//int(points))
+    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_lat) + "%7C" + str(start_long) + '&duration=' + str(int(time)//int(points))
     
     #Calls thhe drivetimePolygons API, which returns an XML file (no option for JSON)
     polygon = requests.get(polygon_url, headers = header)
@@ -61,12 +61,12 @@ def getRoutes():
             even = 0
 
         #adds the coordinates to the longitude and latitude lists after seperating each coordinate in the string, thhen adds it to the midpoints string
-        loc_long.append(coords.split(' ')[temp+even])
-        loc_lat.append(coords.split(' ')[temp+1+even])
-        midpoints += '&wp_' + str(i+2) + '=' + str(loc_long[i+1]) + "%2C" + str(loc_lat[i+1]) 
+        loc_lat.append(coords.split(' ')[temp+even])
+        loc_long.append(coords.split(' ')[temp+1+even])
+        midpoints += '&wp_' + str(i+2) + '=' + str(loc_lat[i+1]) + "%2C" + str(loc_long[i+1]) 
 
     #sets the url to be used
-    route_url = 'https://api.iq.inrix.com/findRoute?wp_1=' + str(loc_long[0]) + "%2C" + str(loc_lat[0]) + midpoints +'&wp_'+ str(points + 2) + '=' + str(loc_long[0]) + "%2C" + str(loc_lat[0])  + '&maxAlternates=2&format=json' + add_highway
+    route_url = 'https://api.iq.inrix.com/findRoute?wp_1=' + str(start_lat) + "%2C" + str(start_long) + midpoints + '&maxAlternates=2&format=json'
     
     #calls the findRoute API, and changes the response into a json
     route = requests.get(route_url, headers = header)
@@ -85,14 +85,14 @@ def getRoutes():
     return jsonify(route_list)
     
 #Sets up API and function for getRouteInfo, which returns a list of coordinate pairs
-#example call http://127.0.0.1:5000/getRouteInfo?route_id={id}
+#example call http://127.0.0.1:5000/getRouteInfo?route_id=37866267
 @app.route("/getRouteInfo")
 def getRouteInfo():
     #assigns route_id to user input
-    route_id = request.args.get("routeId", type=int)
+    route_id = 37866267
     
     #creates API url
-    route_url = 'https://api.iq.inrix.com/route?routeId=' + route_id + '&format=json'
+    route_url = 'https://api.iq.inrix.com/route?routeId=' + str(route_id) + '&format=json'
     
     #Calls route API, changes it to json
     route_info = requests.get(route_url, headers = header)
@@ -108,13 +108,13 @@ def getRouteInfo():
     return jsonify(route_waypoints)
 
 # calculates the farthest distance on the perimeter of a specified drive time polygon, and returns the start and end points of a route between the initial location and that point.
-# example call: http://127.0.0.1:5000/getHighwayRoutes?start_long=33.174639232&start_lat=-122.4356485&time=30
+# example call: http://127.0.0.1:5000/getHighwayRoutes?start_long=37.761524524817595&start_lat=-122.4507584298815&time=30
 @app.route("/getHighwayRoutes")
 def getHighwayRoutes():
 
-    start_lat = request.args.get("start_lat", type=float)
-    start_long = request.args.get("start_long", type=float)
-    time = request.args.get("time", type = int)
+    start_lat = 37.76152452481759
+    start_long = -122.4507584298815
+    time = 90
 
     #uses parameters to make a drive time polygons API call, and saves the XML data into 'polygon'
     polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_lat) + "%7C" + str(start_long) + '&duration=' + str(time // 2)
@@ -145,6 +145,7 @@ def getHighwayRoutes():
             far_lat = temp_lat
 
     #pack the start and end points of the route into a JSON and return them
+    print(start_lat, start_long, far_lat, far_long)
     return jsonify(start_lat, start_long, far_lat, far_long)
 
 app.run()  
