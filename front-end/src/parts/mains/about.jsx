@@ -1,5 +1,5 @@
 const About = () => (
-  <>
+  <div className="content">
     <section>
       <h2>About the project</h2>
       <p>
@@ -12,9 +12,6 @@ const About = () => (
         purpose of this project is to address this gap and provide an accessible
         solution for learners to practice effectively and with confidence.
       </p>
-    </section>
-    <section>
-      <h2>About</h2>
       <p>
         Drive Safe is a cutting-edge application that leverages the capabilities
         of INRIX and Google APIs to generate a secure driving route within a
@@ -23,6 +20,9 @@ const About = () => (
         such as average speed, the number of freeways, frequency of turns and
         intersections, abrupt speed changes, road straightness, and more.
       </p>
+    </section>
+    <section>
+      <h2>How it works</h2>
       <p>
         Our algorithm assigns danger points to each route based on these
         criteria, allowing users to make informed decisions about their practice
@@ -39,7 +39,7 @@ const About = () => (
         safely.
       </p>
     </section>
-  </>
+  </div>
 );
 
 export default About;

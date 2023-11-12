@@ -34,4 +34,17 @@ main {
   section {
     margin-bottom: 50px;
   }
+
+  @media screen and (min-width: 768px) {
+    .content {
+      display: flex;
+      max-width: 900px;
+      margin: 0 auto;
+
+      section {
+        padding: 0 20px;
+        width: 50%;
+      }
+    }
+  }
 }

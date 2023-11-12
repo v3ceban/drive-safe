@@ -1,5 +1,5 @@
 const Contact = () => (
-  <>
+  <div className="content">
     <section className="form">
       <h2>About the project</h2>
       <p>
@@ -36,7 +36,7 @@ const Contact = () => (
         <li>William Wang</li>
       </ul>
     </section>
-  </>
+  </div>
 );
 
 export default Contact;

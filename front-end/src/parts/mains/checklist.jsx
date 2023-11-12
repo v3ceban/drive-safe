@@ -1,5 +1,5 @@
 const Checklist = () => (
-  <>
+  <div className="content">
     <section>
       <h2>Safety Checklist</h2>
       <p>
@@ -44,7 +44,7 @@ const Checklist = () => (
         </li>
       </ul>
     </section>
-  </>
+  </div>
 );
 
 export default Checklist;
