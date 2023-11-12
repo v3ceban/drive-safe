@@ -1,9 +1,12 @@
 #imports for API calls, math, flask, and parsing through xml files
 import requests, json, math
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+
 import xml.etree.ElementTree as ET 
 
 app = Flask(__name__)
+CORS(app)
 
 #Creates api key by calling the Inrix appToken API, does this every time the code is run to ensure the key isnt expired
 app_id = "y93c10tjpj"
@@ -141,7 +144,25 @@ def getHighwayRoutes(start_long, start_lat, time):
     #pack the start and end points of the route into a JSON and return them
     return jsonify(start_lat, start_long, str(far_lat), str(far_long))
 
-app.run()
+# Add this route to handle OPTIONS requests for the root path
+@app.route("/", methods=["OPTIONS"])
+def handle_options():
+    # Respond to the preflight request
+    response = app.make_default_options_response()
+    response.headers["Access-Control-Allow-Origin"] = "*"  # Set your allowed origins instead of "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
+
+# Add this route to handle POST requests for the root path
+@app.route("/", methods=["POST"])
+def handle_post():
+    # Respond to the POST request
+    # You can customize this part based on your requirements
+    return jsonify({"message": "POST request received successfully"})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
    
    
     
