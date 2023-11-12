@@ -5,6 +5,7 @@ const Home = () => {
   const [difficulty, setDifficulty] = useState("Easy");
   const [duration, setDuration] = useState(20);
   const [location, setLocation] = useState("");
+  // eslint-disable-next-line
   const [formData, setFormData] = useState({});
 
   const navigate = useNavigate();

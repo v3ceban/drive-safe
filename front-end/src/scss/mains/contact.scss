@@ -23,7 +23,7 @@ main {
       }
     }
     input {
-      line-height: 60px;
+      line-height: 40px;
     }
     textarea {
       height: 200px;
@@ -38,6 +38,7 @@ main {
       font-weight: bold;
       line-height: 40px;
       font-family: "Roboto Condensed", sans-serif;
+      text-transform: uppercase;
       font-weight: 500;
       font-size: 16px;
       max-width: 312px;
