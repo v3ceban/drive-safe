@@ -1,0 +1,37 @@
+@import "./mains/app.scss";
+@import "./mains/contact.scss";
+
+main {
+  margin-top: 90px;
+
+  input,
+  textarea {
+    background: $white;
+    border: none;
+    font-family: "Roboto", sans-serif;
+  }
+
+  h2 {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+
+  p {
+    margin-top: 25px;
+    line-height: 130%;
+  }
+
+  ul {
+    margin: 20px 0;
+    list-style: unset;
+    padding-left: 20px;
+
+    li {
+      line-height: 150%;
+    }
+  }
+
+  section {
+    margin-bottom: 50px;
+  }
+}

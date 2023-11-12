@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./home.jsx";
-import Checklist from "./checklist.jsx";
+import Home from "./mains/home.jsx";
+import Checklist from "./mains/checklist.jsx";
+import About from "./mains/about.jsx";
+import Contact from "./mains/contact.jsx";
+import Return from "./mains/return.jsx";
 
 const Main = () => {
   return (
@@ -9,6 +12,9 @@ const Main = () => {
         <Route path="*" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/checklist" element={<Checklist />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/return" element={<Return />} />
       </Routes>
     </main>
   );

@@ -1,0 +1,75 @@
+.mobileNav {
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+  justify-self: flex-end;
+  align-self: center;
+  margin-bottom: 32px;
+
+  button {
+    z-index: 5;
+    position: relative;
+  }
+
+  nav {
+    display: none;
+
+    &.is-active {
+      background: $black;
+      display: block;
+      z-index: 4;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 200vh;
+      width: 100vw;
+      overflow: hidden;
+      animation: fade-in 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    }
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  ul {
+    height: 100%;
+    position: relative;
+    top: -40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  li {
+    margin-bottom: 60px;
+    font-size: 32px;
+    max-width: fit-content;
+
+    &::after {
+      content: "";
+      display: block;
+      border-bottom: solid 3px $green;
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+      transform-origin: right;
+    }
+
+    a.active {
+      color: $green;
+    }
+  }
+
+  li:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
