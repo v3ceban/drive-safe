@@ -117,10 +117,13 @@ const Home = () => {
 
     // Store the form data in the state
     setFormData(newFormData);
+    const min = newFormData.time;
 
     const apiEndpoint = `http://127.0.0.1:5000/getHighwayRoutes?start_lat=${encodeURIComponent(
       location.split(",")[0],
-    )}&start_long=${encodeURIComponent(location.split(",")[1])}`;
+    )}&start_long=${encodeURIComponent(
+      location.split(",")[1],
+    )}&min=${encodeURIComponent(min)}`;
 
     try {
       const response = await fetch(apiEndpoint, {
