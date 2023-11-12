@@ -107,11 +107,17 @@ def getRouteInfo():
         route_waypoints.append(route['result']['trip']['wayPoints'][i]['geometry']['coordinates'])
     return jsonify(route_waypoints)
 
-@app.route("/getHighwayRoutes/<start_lat>/<start_long>/<time>")
-def getHighwayRoutes(start_long, start_lat, time):
+# calculates the farthest distance on the perimeter of a specified drive time polygon, and returns the start and end points of a route between the initial location and that point.
+# example call: http://127.0.0.1:5000/getHighwayRoutes?start_long=33.174639232&start_lat=-122.4356485&time=30
+@app.route("/getHighwayRoutes")
+def getHighwayRoutes():
+
+    start_lat = request.args.get("start_lat", type=float)
+    start_long = request.args.get("start_long", type=float)
+    time = request.args.get("time", type = int)
 
     #uses parameters to make a drive time polygons API call, and saves the XML data into 'polygon'
-    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_lat) + "%7C" + str(start_long) + '&duration=' + str(time)
+    polygon_url = 'https://api.iq.inrix.com/drivetimePolygons?center=' + str(start_lat) + "%7C" + str(start_long) + '&duration=' + str(time // 2)
     polygon = requests.get(polygon_url, headers = header)
 
     #parses the XML and saves the coordinates to 'coords'
@@ -139,17 +145,6 @@ def getHighwayRoutes(start_long, start_lat, time):
             far_lat = temp_lat
 
     #pack the start and end points of the route into a JSON and return them
-    return jsonify(start_lat, start_long, str(far_lat), str(far_long))
+    return jsonify(start_lat, start_long, far_lat, far_long)
 
-app.run()
-   
-   
-    
-    
-    
-   
-   
-    
-    
-    
-    
+app.run()  
