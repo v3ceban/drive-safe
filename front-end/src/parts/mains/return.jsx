@@ -1,6 +1,4 @@
-import { MapContainer } from "react-leaflet/MapContainer";
-import { TileLayer } from "react-leaflet/TileLayer";
-import { Polyline } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLocation } from "react-router-dom";
 
@@ -16,30 +14,21 @@ const Return = () => {
 
   const { start_lat, start_long, far_lat, far_long } = routeData;
 
-  const position = [start_lat, start_long];
-  const routeCoordinates = [
-    [start_lat, start_long], // Starting point
-    [far_lat, far_long], // Waypoint 1
-    [start_lat, start_long], // Ending point
-  ];
+  const startPosition = [start_lat, start_long];
+  const endPosition = [far_lat, far_long];
 
   // Function to generate a Google Maps URL for navigation
   const generateGoogleMapsUrl = () => {
-    const origin = routeCoordinates[0].join(",");
-    const destination = routeCoordinates[routeCoordinates.length - 1].join(",");
-    const waypoints = routeCoordinates
-      .slice(1, -1)
-      .map((coord) => coord.join(","))
-      .join("|");
-
-    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving&waypoints=${waypoints}`;
+    const origin = startPosition.join(",");
+    const destination = endPosition.join(",");
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving`;
   };
 
   return (
     <div className="map">
-      <h2>Here&apos;s your route:</h2>
+      <h2>Start and End Points:</h2>
       <MapContainer
-        center={position}
+        center={startPosition}
         zoom={15}
         style={{ height: "60vh", width: "100%" }}
       >
@@ -47,7 +36,14 @@ const Return = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        <Polyline positions={routeCoordinates} color="#1e1e2e" />
+        {/* Marker for Start Point */}
+        <Marker position={startPosition}>
+          <Popup>Start Point</Popup>
+        </Marker>
+        {/* Marker for End Point */}
+        <Marker position={endPosition}>
+          <Popup>End Point</Popup>
+        </Marker>
       </MapContainer>
       <a
         className="button"
@@ -60,4 +56,5 @@ const Return = () => {
     </div>
   );
 };
+
 export default Return;
