@@ -60,7 +60,7 @@ def getRoutes():
         else:
             even = 0
 
-        #adds the coordinates to the longitude and latitude lists after seperating each coordinate in the string, thhen adds it dto the midpoints string
+        #adds the coordinates to the longitude and latitude lists after seperating each coordinate in the string, thhen adds it to the midpoints string
         loc_long.append(coords.split(' ')[temp+even])
         loc_lat.append(coords.split(' ')[temp+1+even])
         midpoints += '&wp_' + str(i+2) + '=' + str(loc_long[i+1]) + "%2C" + str(loc_lat[i+1]) 
