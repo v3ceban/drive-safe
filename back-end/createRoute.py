@@ -112,7 +112,7 @@ def getRouteInfo():
 # calculates the farthest distance on the perimeter of a specified drive time polygon, and returns the start and end points of a route between the initial location and that point.
 # example call: http://127.0.0.1:5000/getHighwayRoutes?start_long=37.761524524817595&start_lat=-122.4507584298815&time=30
 
-@app.route("/getHighwayRoutes")
+@app.route("/getHighwayRoutes", methods = ['POST'])
 def getHighwayRoutes():
     # Get parameters from the front-end React function
     start_lat = float(request.args.get('start_lat', None))
@@ -149,7 +149,9 @@ def handle_root():
         # Handle POST request logic here
         return jsonify({"message": "Received a POST request"})
     else:
-        # Handle GET request logic here
+        #Handle GET request logic here
         return jsonify({"message": "Received a GET request"})
+    
+
 
 app.run()  

@@ -131,6 +131,11 @@ const Home = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(
+          start_lat = latitude,
+          start_long = longitude,
+          time = min
+        )
       });
 
       if (!response.ok) {
