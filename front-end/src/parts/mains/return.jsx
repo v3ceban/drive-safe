@@ -1,16 +1,26 @@
 import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { Polyline } from "react-leaflet";
-// import { useMap } from "react-leaflet/hooks";
 import "leaflet/dist/leaflet.css";
+import { useLocation } from "react-router-dom";
 
 const Return = () => {
-  const position = [37.779026, -122.419906];
+  const location = useLocation();
+  const routeData = location.state && location.state.routeData;
+
+  // Check if routeData is available
+  if (!routeData) {
+    // Handle the case where routeData is not available
+    return <div>No route data available.</div>;
+  }
+
+  const { start_lat, start_long, far_lat, far_long } = routeData;
+
+  const position = [start_lat, start_long];
   const routeCoordinates = [
-    [37.779026, -122.419906], // Starting point
-    [37.7749, -122.4194], // Waypoint 1
-    [37.7737, -122.4216], // Waypoint 2
-    [37.7749, -122.4325], // Ending point
+    [start_lat, start_long], // Starting point
+    [far_lat, far_long], // Waypoint 1
+    [start_lat, start_long], // Ending point
   ];
 
   // Function to generate a Google Maps URL for navigation

@@ -118,15 +118,16 @@ const Home = () => {
     // Store the form data in the state
     setFormData(newFormData);
 
-    // Make a POST request to your Flask backend
-    const apiEndpoint = "http://127.0.0.1:5000"; // Update this with your Flask API endpoint
+    const apiEndpoint = `http://127.0.0.1:5000/getHighwayRoutes?start_lat=${encodeURIComponent(
+      location.split(",")[0],
+    )}&start_long=${encodeURIComponent(location.split(",")[1])}`;
+
     try {
       const response = await fetch(apiEndpoint, {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newFormData),
       });
 
       if (!response.ok) {
@@ -137,8 +138,8 @@ const Home = () => {
       // Handle the response from the Flask API if needed
       console.log("API Response:", data);
 
-      // Navigate to "/return" if needed
-      navigate("/return");
+      // Pass the response data as state to the Return component
+      navigate("/return", { state: { routeData: data } });
 
       // Log the form data as JSON
       console.log("Form Data:", JSON.stringify(newFormData));
