@@ -72,7 +72,7 @@ def getRoutes():
     route = requests.get(route_url, headers = header)
     routing = route.json()
 
-    //Creates list of routes
+    '''Creates list of routes'''
     route_list = []
     
     #Determines the location of the route ID in the json, then adds them to the string (the first route ID is found easily, the next two routes are +1 and +2 from that value
