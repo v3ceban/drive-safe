@@ -25,7 +25,7 @@ def getRoutes():
     start_lat = float(request.args.get('start_lat', None))
     start_long = float(request.args.get('start_long', None))
     time = float(request.args.get('min', None))
-    highway = false
+    highway = False
     
     # maximum of 8 points, most accurate when 6 points
     points = 6
