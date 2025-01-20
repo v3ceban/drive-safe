@@ -26,21 +26,21 @@ header = {"Authorization": "Bearer " + api_key}
 
 
 # Sets up function and API for getRoutes, which returns a json of a list
-# example call http://127.0.0.1:5000/getRoutes?start_lat=37.76152452481759&start_long=-122.4507584298815&highway=True&time=90&points=6
+# example call http://127.0.0.1:5000/getRoutes?start_lat=37.76152452481759&start_long=-122.4507584298815&time=90&points=6
 @app.route("/getRoutes")
 def getRoutes():
     # takes input from arguments included in the url, assigns them to variables
-    start_lat = 37.76152452481759
-    start_long = -122.4507584298815
-    time = 90
-    highway = True
+    start_lat = float(request.args.get("start_lat", None))
+    start_long = float(request.args.get("start_long", None))
+    time = float(request.args.get("min", None))
+    # highway = False
 
     # maximum of 8 points, most accurate when 6 points
     points = 6
 
     # adds a no highway parameter depending on user input arguements
-    if not highway:
-        add_highway = "&criteria=H"
+    # if not highway:
+    #     add_highway = "&criteria=H"
 
     # Creates the url for drivetimePolygons, using starting longitude, "%7C" which is a '|', starting latitude, and a duration calculated from time and number of points
     polygon_url = (
@@ -148,12 +148,12 @@ def getRouteInfo():
 # example call: http://127.0.0.1:5000/getHighwayRoutes?start_long=37.761524524817595&start_lat=-122.4507584298815&time=30
 
 
-@app.route("/getHighwayRoutes")
+@app.route("/getHighwayRoutes", methods=["POST"])
 def getHighwayRoutes():
     # Get parameters from the front-end React function
-    start_lat = float(request.args.get("start_lat", 37.76152452481759))
-    start_long = float(request.args.get("start_long", -122.4507584298815))
-    time = 90
+    start_lat = float(request.args.get("start_lat", None))
+    start_long = float(request.args.get("start_long", None))
+    time = float(request.args.get("min", None))
 
     # Rest of your code remains unchanged
     polygon_url = (

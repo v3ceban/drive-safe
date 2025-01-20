@@ -2,7 +2,7 @@
 
 ## Inspiration
 
-Car accidents are the second leading cause of death among teens. Additionally, the experience of being a new driver is summarized by dread and anxiety, especially towards highways. This marked an obvious need for improvements to the learning process, especially considering the 27 million Americans in California alone getting their license each year. We noticed that through the vast data of Inrix APIs, we could determime routes for beginners to expand difficulty as their comfort grows. With new drivers provided smarter, and safer routes, we believe we can alleviate danger for millions of Americans.
+Car accidents are the second leading cause of death among teens. Additionally, the experience of being a new driver is summarized by dread and anxiety, especially towards highways. This marked an obvious need for improvements to the learning process, especially considering the millions of Americans in California alone getting their license each year. We noticed that through the vast data of Inrix APIs, we could determine routes for beginners to expand difficulty as their comfort grows. With new drivers provided smarter, and safer routes, we believe we can alleviate danger for millions of Americans.
 
 ## What does it do?
 
@@ -18,11 +18,11 @@ The night before the Hackathon began, after an hour-long prep meeting, we discov
 
 ## Accomplishments we are proud of
 
-None of our team had experience with APIs, Hackathons, combining front-ends with back-ends, and met four days before. Additionally, our back-end team had limited Python experience and our front-end had limited React experience. Yet, despite nonstop roadblocks, we never gave up, continued to collaberate incredibly effectively, and shifted our ideas to fit the opportunity we were given to ultimately produce a working product that achieves our initial goal. In particular, our routing function was particularly daunting at first and featured at least 5 approaches before discovering the implimentation through Drivetime Polygons.
+Most of our team had no experience with APIs, Hackathons, combining front-ends with back-ends, and met four days before. Additionally, our back-end team had limited Python experience and our front-end had limited React experience. Yet, despite nonstop roadblocks, we never gave up, continued to collaborate incredibly effectively, and shifted our ideas to fit the opportunity we were given to ultimately produce a working product that achieves our initial goal. In particular, our routing function was particularly daunting at first and featured at least 5 approaches before discovering the implementation through Drivetime Polygons.
 
 ## What we learned
 
-We learned how to create a project as a team with a seperate front-end and back-end. Additionally, we gained invaluable practical experience with a variety of industry technologies and applications. It's rare to get opportunities in classes to follow a project from scratch to completition and the added time limit also expanded our collaberation under pressure.
+We learned how to create a project as a team with a separate front-end and back-end. Additionally, we gained invaluable practical experience with a variety of industry technologies and applications. It's rare to get opportunities in classes to follow a project from scratch to competition and the added time limit also expanded our collaboration under pressure.
 
 ## What's next for Drive Safe?
 
